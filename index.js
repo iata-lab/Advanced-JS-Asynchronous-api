@@ -72,3 +72,23 @@ function fetchGithubUsers(usernames) {
 
   return Promise.all(promises);
 }
+
+// Add event listener when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const searchButton = document.getElementById('search-button');
+    const usernameInput = document.getElementById('username-input');
+    const resultDiv = document.getElementById('result');
+
+    searchButton.addEventListener('click', () => {
+        const username = usernameInput.value.trim();
+        if (username) {
+            getAndPrintGitHubUserProfile(username)
+                .then(html => {
+                    resultDiv.innerHTML = html;
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+                });
+        }
+    });
+});
